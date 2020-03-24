@@ -3,24 +3,21 @@ import pandas as pd
 from nltk import tokenize as tokenizers
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 
-
 class TextCleaning:
 
-    def __init__(self, remove_numbers=False, remove_hyperlinks=True):
-
-        self.remove_numbers = remove_numbers
-        self.remove_hyperlinks = remove_hyperlinks
+    def __init__(self):
 
         return
 
-    def clean_text(self, corpus):
+    def remove_hyperlinks(self, corpus):
+        
+        corpus = corpus.str.replace(r"https?://t.co/[A-Za-z0-9]+", "https")
+        return corpus
 
-        if self.remove_hyperlinks:
-            corpus = corpus.str.replace(r"https?://t.co/[A-Za-z0-9]+", "https")
 
-        if self.remove_numbers:
-            corpus = corpus.str.replace(r"\w*\d\w*", "")
-
+    def remove_numbers(self, corpus):
+        
+        corpus = corpus.str.replace(r"\w*\d\w*", "")
         return corpus
 
     def tokenize(self, corpus):
@@ -62,6 +59,23 @@ class TextCleaning:
     def to_lower(self, corpus):
 
         return corpus.apply(str.lower)
+
+    def negate_corpus(self, corpus):
+
+        corpus = corpus.apply(self.negate_sentence)
+        return corpus
+
+    def negate_sentence(self, sentence):
+
+        sentence = sentence.lower()
+
+        for word in appos:
+            if word in sentence:
+                sentence = sentence.replace(word, appos[word])
+
+        return sentence.lower()
+
+
 
 
 
