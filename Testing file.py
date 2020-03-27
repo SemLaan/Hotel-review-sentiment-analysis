@@ -2,7 +2,7 @@
 from Custom.Database import MysqlDB as Database
 import pandas as pd
 db = Database()
-df = db.from_database('beef')
+df = db.from_database('model_tests')
 testingDF = df.sample(15000, random_state=0)
 dfHead = df.head(1000)
 

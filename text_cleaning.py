@@ -12,8 +12,8 @@ df = db.from_database('beef')
 dfHead = df.head(1000)
 
 # text cleaning
-cleaner = TextCleaning(remove_numbers=True)
-df['review'] = cleaner.clean_text(df['review'])
+cleaner = TextCleaning()
+
 
 
 # Tokenization

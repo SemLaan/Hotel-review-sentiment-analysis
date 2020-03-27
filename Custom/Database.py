@@ -16,7 +16,7 @@ class MysqlDB:
 
         data.to_sql(table_name, self.connection, if_exists='replace')
 
-    def from_database(self, table_name):
+    def from_database(self, subset):
 
-        return pd.read_sql("select * from " + table_name, self.connection)
+        return pd.read_sql("CALL get_subset(\'" + subset + "\')", self.connection)
 
