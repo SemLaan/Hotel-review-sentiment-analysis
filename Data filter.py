@@ -29,8 +29,12 @@ dfhotelFilteredPos = (
 dfhotelFilteredPos['label'] = 1
 
 
-dfhotelFilteredNeg.rename({'Negative_Review' : 'review', 'label' : 'label'}, axis = 1, inplace=True)
-dfhotelFilteredPos.rename({'Positive_Review' : 'review', 'label' : 'label'}, axis = 1, inplace=True)
+dfhotelFilteredNeg.rename(
+    {'Negative_Review' : 'review', 'label' : 'label'}, axis = 1, inplace=True
+)
+dfhotelFilteredPos.rename(
+    {'Positive_Review' : 'review', 'label' : 'label'}, axis = 1, inplace=True
+)
 
 
 model_testPos = dfhotelFilteredPos.sample(15000, random_state=0)
