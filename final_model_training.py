@@ -32,12 +32,11 @@ X_rf = cleaner.stem(X)
 
 
 
-
 # SVM
 svc = SVC(random_state=0, cache_size=1000, C=1.0, kernel='rbf', gamma=1)
 svc_vectorizer = TfidfVectorizer(binary=True)
 svc_pipe = make_pipeline(svc_vectorizer, svc)
-svc_pipe.fit(X, y)
+svc_pipe.fit(X_svm_nb, y)
 
 dump(svc_pipe, 'trained_models/svc.joblib')
 
@@ -46,7 +45,7 @@ dump(svc_pipe, 'trained_models/svc.joblib')
 rf = RandomForestClassifier(random_state=0, n_jobs=-1, n_estimators=200, criterion='gini', max_depth=None)
 rf_vectorizer = CountVectorizer()
 rf_pipe = make_pipeline(rf_vectorizer, rf)
-rf_pipe.fit(X, y)
+rf_pipe.fit(X_rf, y)
 
 dump(rf_pipe, 'trained_models/random_forest.joblib')
 
@@ -55,7 +54,7 @@ dump(rf_pipe, 'trained_models/random_forest.joblib')
 nb = MultinomialNB()
 nb_vectorizer = CountVectorizer(ngram_range=(1, 2))
 nb_pipe = make_pipeline(nb_vectorizer, nb)
-nb_pipe.fit(X, y)
+nb_pipe.fit(X_svm_nb, y)
 
 dump(nb_pipe, 'trained_models/naive_bayes.joblib')
 
