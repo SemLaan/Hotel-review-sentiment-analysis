@@ -62,7 +62,7 @@ print(svc_results.best_score_)
 rf = RandomForestClassifier(random_state=0, n_jobs=-1)
 rf_vectorizer = CountVectorizer()
 rf_pipe = make_pipeline(rf_vectorizer, rf)
-rf_pipe.steps
+
 rf_grid = {
     'randomforestclassifier__n_estimators': [75, 100, 200],
     'randomforestclassifier__criterion': ['gini', 'entropy'],
