@@ -50,5 +50,10 @@ svc_results = cross_validate(svc_pipe, X, y, cv=5, n_jobs=-1, verbose=3)
 print(svc_results['test_score'].mean())
 
 
+TfidfVectorizer(binary=False, ngram_range=(1, 2), stop_words=stop)
 
 
+svc = SVC(random_state=0, kernel='rbf', gamma=1, C=0.1)
+
+
+svc_pipe = make_pipeline(TfidfVectorizer(binary=False, ngram_range=(1, 2), stop_words=stop), svc)

@@ -37,8 +37,8 @@ dfhotelFilteredPos.rename(
 )
 
 
-model_testPos = dfhotelFilteredPos.sample(15000, random_state=0)
-model_testNeg = dfhotelFilteredNeg.sample(15000, random_state=0)
+model_testPos = dfhotelFilteredPos.sample(10000, random_state=0)
+model_testNeg = dfhotelFilteredNeg.sample(10000, random_state=0)
 
 final_modelPos = dfhotelFilteredPos.drop(model_testPos.index)
 final_modelNeg = dfhotelFilteredNeg.drop(model_testNeg.index)
