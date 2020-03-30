@@ -24,7 +24,7 @@ nb = MultinomialNB()
 # Initializing cleaning class and fetching stop words
 cleaner = text.TextCleaning()
 stop = get_stop_words('english')
-
+cleaner.count_negations(X)
 
 svc_pipe = make_pipeline(CountVectorizer(), svc)
 rf_pipe = make_pipeline(CountVectorizer(), rf)
