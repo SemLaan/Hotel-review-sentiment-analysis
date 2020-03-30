@@ -43,8 +43,8 @@ model_testNeg = dfhotelFilteredNeg.sample(10000, random_state=0)
 final_modelPos = dfhotelFilteredPos.drop(model_testPos.index)
 final_modelNeg = dfhotelFilteredNeg.drop(model_testNeg.index)
 
-trainPos = final_modelPos.sample(100000, random_state=0)
-trainNeg = final_modelNeg.sample(100000, random_state=0)
+trainPos = final_modelPos.sample(25000, random_state=0)
+trainNeg = final_modelNeg.sample(25000, random_state=0)
 
 testPos = final_modelPos.drop(trainPos.index)
 testNeg = final_modelNeg.drop(trainNeg.index)
