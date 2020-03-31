@@ -12,6 +12,7 @@ from sklearn.model_selection import GridSearchCV
 from joblib import load
 from sklearn.metrics import plot_confusion_matrix
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 class TrainedModel:
@@ -60,7 +61,7 @@ class TrainedModel:
 db = Database()
 df = db.from_database('test')
 
-df = df.sample(200, random_state=None)
+df = df.sample(10000, random_state=None)
 
 X = df['review']
 y = df['label']
@@ -79,8 +80,6 @@ rf.score(X, y)
 
 
 # plotting confusion matrices
-
-
 cleaner = text.TextCleaning()
 
 X_a = cleaner.remove_numbers(X)
@@ -90,31 +89,29 @@ X_a = cleaner.negate_corpus(X_a)
 
 X_b = cleaner.stem(X)
 
-plot_confusion_matrix(nb.model, X_a, y)
+plot_confusion_matrix(nb.model, X_a, y, normalize='all', display_labels=['negatief', 'positief'])
 plt.show()
 plt.clf()
-plot_confusion_matrix(svc.model, X_a, y)
+plot_confusion_matrix(svc.model, X_a, y, normalize='all', display_labels=['negatief', 'positief'])
 plt.show()
 plt.clf()
-plot_confusion_matrix(rf.model, X_b, y)
+plot_confusion_matrix(rf.model, X_b, y, normalize='all', display_labels=['negatief', 'positief'])
 plt.show()
 plt.clf()
 
 
 
 # testing my own reviews
-nb.predict(pd.Series(['This hotel is bad the windows were small and the bread was old', 'very nice hotel']))
+my_reviews = pd.Series([
+    'This hotel is bad the windows were small and the bread was old', 
+    'The staff was rude and we got attacked by a chimp',
+    'very nice hotel', 
+    'comfy beds and respectfull staff'
+])
+my_reviews_labels = pd.Series([0, 0, 1, 1])
 
-
-
-
-
-
-
-
-
-
-
-
+nb.score(my_reviews, my_reviews_labels)
+svc.score(my_reviews, my_reviews_labels)
+rf.score(my_reviews, my_reviews_labels)
 
 
