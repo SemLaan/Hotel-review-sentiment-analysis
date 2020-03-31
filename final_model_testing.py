@@ -43,15 +43,17 @@ class TrainedModel:
 
         X = self.cleaner.to_lower(X)
 
-        if self.model_type == 'svc' or self.model_type == 'naive_bayes':
+        if self.model_type == 'random_forest':
 
+            X = self.cleaner.stem(X)
+            
+        else:
+            
             X = self.cleaner.remove_numbers(X)
             X = self.cleaner.lemmatize(X)
             X = self.cleaner.negate_corpus(X)
 
-        else:
-
-            X = self.cleaner.stem(X)
+            
 
         return self.model.score(X, y)
 
@@ -61,7 +63,7 @@ class TrainedModel:
 db = Database()
 df = db.from_database('test')
 
-df = df.sample(10000, random_state=None)
+df = df.sample(10000, random_state=0)
 
 X = df['review']
 y = df['label']
@@ -71,12 +73,16 @@ y = df['label']
 nb = TrainedModel('naive_bayes')
 svc = TrainedModel('svc')
 rf = TrainedModel('random_forest')
+svc_good_prune = TrainedModel('good_svc_pruned')
+svc_bad_prune = TrainedModel('bad_svc_pruned')
 
 
 # validating with test set
 nb.score(X, y)
 svc.score(X, y)
 rf.score(X, y)
+svc_good_prune.score(X, y)
+svc_bad_prune.score(X, y)
 
 
 # plotting confusion matrices
@@ -113,5 +119,7 @@ my_reviews_labels = pd.Series([0, 0, 1, 1])
 nb.score(my_reviews, my_reviews_labels)
 svc.score(my_reviews, my_reviews_labels)
 rf.score(my_reviews, my_reviews_labels)
+svc_good_prune.score(my_reviews, my_reviews_labels)
+svc_bad_prune.score(my_reviews, my_reviews_labels)
 
 

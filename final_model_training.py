@@ -10,6 +10,7 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 from sklearn.model_selection import GridSearchCV
 from joblib import dump
+from sklearn.feature_selection import SelectFromModel
 
 
 # fetching data
@@ -57,5 +58,15 @@ nb_pipe = make_pipeline(nb_vectorizer, nb)
 nb_pipe.fit(X_svm_nb, y)
 
 dump(nb_pipe, 'trained_models/naive_bayes.joblib')
+
+
+# SVM with ramdom forest feature pruning
+svc_prune = SVC(random_state=0, cache_size=1000, C=1.0, kernel='rbf', gamma=1)
+svc_prune_vectorizer = TfidfVectorizer(binary=True)
+svc_prune_feature_pruner = SelectFromModel(RandomForestClassifier(random_state=0, n_jobs=-1, n_estimators=200, criterion='gini', max_depth=None))
+svc_prune_pipe = make_pipeline(svc_prune_vectorizer, svc_prune_feature_pruner, svc_prune)
+svc_prune_pipe.fit(X_svm_nb, y)
+
+dump(svc_prune_pipe, 'trained_models/bad_svc_pruned.joblib')
 
 
