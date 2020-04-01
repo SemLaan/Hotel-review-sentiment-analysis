@@ -112,9 +112,10 @@ my_reviews = pd.Series([
     'This hotel is bad the windows were small and the bread was old', 
     'The staff was rude and we got attacked by a chimp',
     'very nice hotel', 
-    'comfy beds and respectfull staff'
+    'comfy beds and respectfull staff',
+    'Wendy s spot is ideal for access to the South Shore and makes drives to both Waimea Canyon and Hanalei manageable The house is great and gets a consistent breeze throughout  On top of this  Wendy is a super considerate and thoughtful host who responds quickly and cares about your stay'
 ])
-my_reviews_labels = pd.Series([0, 0, 1, 1])
+my_reviews_labels = pd.Series([0, 0, 1, 1, 1])
 
 nb.score(my_reviews, my_reviews_labels)
 svc.score(my_reviews, my_reviews_labels)
